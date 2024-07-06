@@ -34,9 +34,9 @@ class myApp(tk.Frame):
         self.root.config(menu=self.menubar)
 
         def donothing(self):
-            self.filewin = tk.Toplevel(self)
-            self.button = tk.Button(self.filewin, text="Do nothing button")
-            self.button.pack()
+            filewin = tk.Toplevel(self)
+            button = tk.Button(filewin, text="Do nothing button")
+            button.pack()
 
         self.filemenu = tk.Menu(self.menubar, tearoff=0)
         self.filemenu.add_command(label="New", command=donothing)
@@ -65,9 +65,9 @@ class myApp(tk.Frame):
         self.menubar.add_cascade(label="Help", menu=self.helpmenu)
 
     def create_buttons(self):
-        def show(self):
-            self.filename = askopenfile()
-            print(self.filename)
+        def show():
+            filename = askopenfile()
+            print(filename)
         
         button= ttk.Button(self, text= "Open file", command = show)
         button.pack(padx = 10, pady = 10, side = tk.LEFT)
