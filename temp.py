@@ -23,12 +23,12 @@ class myApp(tk.Frame):
         )
 
         self.main_frame = self
-        self.main_frame.pack(fill=tk.BOTH, expand=TRUE)
-        self.main_frame.columnconfigure(0, minsize=600, weight=1)
-        self.main_frame.rowconfigure(0, minsize=400, weight=1)
+        #self.main_frame.grid(fill=tk.BOTH, expand=TRUE)
+        self.main_frame.columnconfigure(0, minsize=30, weight=1)
+        self.main_frame.rowconfigure(1, minsize=40, weight=1)
 
         self.create_menubar()
-        self.create_preview()
+        #self.create_preview()
         self.create_buttons()
 
     def create_menubar(self):
@@ -36,9 +36,10 @@ class myApp(tk.Frame):
         self.root.config(menu=self.menubar)
 
         def donothing(self):
-            filewin = tk.Toplevel(self)
-            button = tk.Button(filewin, text="Do nothing button")
-            button.pack()
+            #filewin = tk.Toplevel(self)
+            #button = tk.Button(filewin, text="Do nothing button")
+            #button.pack()
+            print("nionoe")
 
         self.filemenu = tk.Menu(self.menubar, tearoff=0)
         self.filemenu.add_command(label="New", command=donothing)
@@ -78,34 +79,33 @@ class myApp(tk.Frame):
         def display():
             print("nothing")
         
-        frm_buttons = tk.Frame(self, relief=tk.RAISED, bd=2)
+        frm_buttons = tk.Frame(self.root, relief=tk.RAISED, bd=2)
+        frm_preview = tk.Frame(self.root, height=10)
 
         button_open = tk.Button(frm_buttons, text= "Open file", command = show)
-        #button.pack(padx = 10, pady = 10, side = tk.BOTTOM)
-
         button_capture= tk.Button(frm_buttons, text= "Capture Image", command = display)
-        #button.pack(padx = 10, pady = 10, side = tk.BOTTOM)
-
         button_classify= tk.Button(frm_buttons, text= "Classify", command = display)
-        #button.pack(padx = 10, pady = 10, side = tk.BOTTOM)
+
+        text = tk.Text(frm_preview,bg='GREEN', height=10)
 
         label = tk.Label(frm_buttons, text = "Classification: ")
-        label.pack(padx = 5)
+        #label.pack(padx = 5)
 
         label = tk.Label(frm_buttons, text = "N/A")
-        label.pack(padx = 5)
+        #label.pack(padx = 5)
         
         button_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         button_capture.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
         button_classify.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
 
-        frm_buttons.grid(row=1, column=0, sticky="ns")
+        text.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         
-
-
+        frm_preview.grid(row=0, column=0)
+        frm_buttons.grid(row=1, column=0)
+        
 
 root = Tk()
 root.title('Black Garlic Classification System')
-root.geometry('600x400')
+#root.geometry('600x400')
 window = myApp(root)
 root.mainloop()
