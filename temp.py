@@ -15,7 +15,7 @@ class myApp(tk.Frame):
         self.fg_menus = 'BLACK'
         self.active_bg_menus = '#bcdff2'
         self.active_fg_menus = 'BLACK'
-        self.bg_app = '#1f1f1f'
+        self.bg_app = '#adadad'
 
         super().__init__(
             root,
@@ -28,6 +28,7 @@ class myApp(tk.Frame):
         self.main_frame.rowconfigure(0, weight=1)
 
         self.create_menubar()
+        self.create_buttons()
 
     def create_menubar(self):
         self.menubar = tk.Menu(self.root)
@@ -72,26 +73,23 @@ class myApp(tk.Frame):
         def display():
             print("nothing")
         
-        button= ttk.Button(self, text= "Open file", command = show)
+        button= tk.Button(self, text= "Open file", command = show)
         button.pack(padx = 10, pady = 10, side = tk.LEFT)
 
-        button= ttk.Button(self, text= "Open file", command = show)
+        button= tk.Button(self, text= "Capture Image", command = display)
         button.pack(padx = 10, pady = 10, side = tk.LEFT)
 
-        button= ttk.Button(self, text= "Capture Image", command = display)
+        button= tk.Button(self, text= "Classify", command = display)
         button.pack(padx = 10, pady = 10, side = tk.LEFT)
 
-        button= ttk.Button(self, text= "Classify", command = display)
-        button.pack(padx = 10, pady = 10, side = tk.LEFT)
-
-        label = ttk.Label(self, text = "Classification: ")
+        label = tk.Label(self, text = "Classification: ")
         label.pack(padx = 5)
 
-        label = ttk.Label(self, text = "N/A")
+        label = tk.Label(self, text = "N/A")
         label.pack(padx = 5)
 
 root = Tk()
 root.title('Black Garlic Classification System')
-root.geometry('800x600')
+root.geometry('600x400')
 window = myApp(root)
 root.mainloop()
