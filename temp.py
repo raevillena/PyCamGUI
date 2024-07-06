@@ -68,9 +68,27 @@ class myApp(tk.Frame):
         def show():
             filename = askopenfile()
             print(filename)
+
+        def display():
+            print("nothing")
         
         button= ttk.Button(self, text= "Open file", command = show)
         button.pack(padx = 10, pady = 10, side = tk.LEFT)
+
+        button= ttk.Button(self, text= "Open file", command = show)
+        button.pack(padx = 10, pady = 10, side = tk.LEFT)
+
+        button= ttk.Button(self, text= "Capture Image", command = display)
+        button.pack(padx = 10, pady = 10, side = tk.LEFT)
+
+        button= ttk.Button(self, text= "Classify", command = display)
+        button.pack(padx = 10, pady = 10, side = tk.LEFT)
+
+        label = ttk.Label(self, text = "Classification: ")
+        label.pack(padx = 5)
+
+        label = ttk.Label(self, text = "N/A")
+        label.pack(padx = 5)
 
 root = Tk()
 root.title('Black Garlic Classification System')
