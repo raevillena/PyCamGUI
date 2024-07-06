@@ -33,8 +33,10 @@ class myApp(tk.Frame):
         self.menubar = tk.Menu(self.root)
         self.root.config(menu=self.menubar)
 
-        def donothing():
-            print("nothing")
+        def donothing(self):
+            self.filewin = tk.Toplevel(self)
+            self.button = tk.Button(self.filewin, text="Do nothing button")
+            self.button.pack()
 
         self.filemenu = tk.Menu(self.menubar, tearoff=0)
         self.filemenu.add_command(label="New", command=donothing)
@@ -62,31 +64,16 @@ class myApp(tk.Frame):
         self.helpmenu.add_command(label="About...", command=donothing)
         self.menubar.add_cascade(label="Help", menu=self.helpmenu)
 
+    def create_buttons(self):
+        def show(self):
+            self.filename = askopenfile()
+            print(self.filename)
+        
+        button= ttk.Button(self, text= "Open file", command = show)
+        button.pack(padx = 10, pady = 10, side = tk.LEFT)
+
 root = Tk()
 root.title('Black Garlic Classification System')
 root.geometry('800x600')
 window = myApp(root)
 root.mainloop()
-
-
-
-def display():
-   print("nothing")
-
-def show():
-   filename = askopenfile()
-   print(filename)
-
-
-
-
-
-frame = Canvas(master=root, bg="white", height=600, width=700)
-
-button= ttk.Button(frame, text= "Open file", command = show)
-button.pack(padx = 10, pady = 10, side = tk.LEFT)
-
-
-
-root.config(menu=menubar)
-frame.pack(padx = 5, pady = 5)
