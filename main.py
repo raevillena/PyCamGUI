@@ -4,8 +4,8 @@ from tkinter import *
 from tkinter.filedialog import askopenfile
 
 root = tk.Tk()
-frame= ttk.Frame(root,height=600,width=800)
-
+#frame= ttk.Frame(root,height=600,width=800)
+frame = Canvas(root, bg="white", height=600, width=700)
 def increment():
    progressBar.step(20)
    
@@ -19,7 +19,7 @@ def show():
    filename = askopenfile()
    print(filename)
 
-C = Canvas(root, bg="white", height=600, width=700)
+
 
 progressBar= ttk.Progressbar(frame, mode='determinate')
 progressBar.pack(padx = 10, pady = 10)
