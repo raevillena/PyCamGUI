@@ -24,10 +24,11 @@ class myApp(tk.Frame):
 
         self.main_frame = self
         self.main_frame.pack(fill=tk.BOTH, expand=TRUE)
-        self.main_frame.columnconfigure(0, weight=1)
-        self.main_frame.rowconfigure(0, weight=1)
+        self.main_frame.columnconfigure(0, minsize=600, weight=1)
+        self.main_frame.rowconfigure(0, minsize=400, weight=1)
 
         self.create_menubar()
+        self.create_preview()
         self.create_buttons()
 
     def create_menubar(self):
@@ -65,6 +66,10 @@ class myApp(tk.Frame):
         self.helpmenu.add_command(label="About...", command=donothing)
         self.menubar.add_cascade(label="Help", menu=self.helpmenu)
 
+    def create_preview(self):
+        frm_preview = tk.Text(self)
+        frm_preview.grid(row=0, column=0, sticky="nsew")
+
     def create_buttons(self):
         def show():
             filename = askopenfile()
@@ -73,20 +78,31 @@ class myApp(tk.Frame):
         def display():
             print("nothing")
         
-        button= tk.Button(self, text= "Open file", command = show)
-        button.pack(padx = 10, pady = 10, side = tk.LEFT)
+        frm_buttons = tk.Frame(self, relief=tk.RAISED, bd=2)
 
-        button= tk.Button(self, text= "Capture Image", command = display)
-        button.pack(padx = 10, pady = 10, side = tk.LEFT)
+        button_open = tk.Button(frm_buttons, text= "Open file", command = show)
+        #button.pack(padx = 10, pady = 10, side = tk.BOTTOM)
 
-        button= tk.Button(self, text= "Classify", command = display)
-        button.pack(padx = 10, pady = 10, side = tk.LEFT)
+        button_capture= tk.Button(frm_buttons, text= "Capture Image", command = display)
+        #button.pack(padx = 10, pady = 10, side = tk.BOTTOM)
 
-        label = tk.Label(self, text = "Classification: ")
+        button_classify= tk.Button(frm_buttons, text= "Classify", command = display)
+        #button.pack(padx = 10, pady = 10, side = tk.BOTTOM)
+
+        label = tk.Label(frm_buttons, text = "Classification: ")
         label.pack(padx = 5)
 
-        label = tk.Label(self, text = "N/A")
+        label = tk.Label(frm_buttons, text = "N/A")
         label.pack(padx = 5)
+        
+        button_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+        button_capture.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
+        button_classify.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
+
+        frm_buttons.grid(row=1, column=0, sticky="ns")
+        
+
+
 
 root = Tk()
 root.title('Black Garlic Classification System')
