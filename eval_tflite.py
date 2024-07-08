@@ -28,7 +28,7 @@ def classify_image(interpreter, image, top_k=1):
 data_folder = "/home/admin/PyCamGUI/"
 
 model_path = '/home/admin/Model_1_EfficientNetB0_with_fine-tuning.tflite'
-label_path = data_folder + "labels_mobilenet_quant_v1_224.txt"
+label_path = data_folder + "classes.txt"
 
 interpreter = Interpreter(model_path)
 print("Model Loaded Successfully.")
@@ -48,8 +48,7 @@ classification_time = np.round(time2-time1, 3)
 print("Classificaiton Time =", classification_time, "seconds.")
 
 # Read class labels.
-#labels = load_labels(label_path)
-labels  = ['excellent', 'overaged', 'underaged']
+labels = load_labels(label_path)
 
 # Return the classification label of the image.
 classification_label = labels[label_id]
