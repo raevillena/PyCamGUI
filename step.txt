@@ -1,0 +1,6 @@
+source venv2/bin/activate
+
+
+sudo apt install python3-dev libhdf5-dev
+sudo apt install python3-h5py
+pip install tensorflow==2.15.0

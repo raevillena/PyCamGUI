@@ -88,7 +88,7 @@ class myApp(tk.Frame):
         frm_image = tk.Frame(self.root, relief="ridge", width=500, height=300, background="#d1e3ff")
         image_label = tk.Label(frm_image, text="No Image Loaded")
 
-        status_label = tk.Label(self.root, text="Please open or capture image fist.", padx=10, pady=1)
+        status_label = tk.Label(self.root, text="Please open or capture image first.", padx=10, pady=1)
         
         frm_buttons = tk.Frame(self.root, relief=tk.RAISED, bd=2)
 
@@ -106,6 +106,6 @@ class myApp(tk.Frame):
 
 root = Tk()
 root.title('Black Garlic Classification System')
-root.geometry('600x400')
+#root.geometry('600x400')
 window = myApp(root)
 root.mainloop()
