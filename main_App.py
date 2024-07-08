@@ -79,6 +79,7 @@ class myApp(tk.Frame):
                 display_image(file_path)
                 global shared_file_path
                 shared_file_path = file_path
+                print(shared_file_path)
 
         def display_image(file_path):
             image = Image.open(file_path)
@@ -90,7 +91,7 @@ class myApp(tk.Frame):
             status_label.config(text=f"Image loaded: {file_path}")
             image_label.grid(row=1, column=0, padx=10, pady=2)
 
-        def classify_pls(self):
+        def classify_pls():
             pred_label,pred_accuracy = classify(shared_file_path)
             classification.set("Classification: ", pred_label, ", with Accuracy :", np.round(pred_accuracy*100, 2), "%.")
 

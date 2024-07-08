@@ -17,11 +17,7 @@ def classify_image(interpreter, image, top_k=1):
     set_input_tensor(interpreter, image)
 
     interpreter.invoke()
-    output_details = interpreter.get_output_details()[0]
     output = np.squeeze(interpreter.get_tensor(output_details[0]['index']))
-
-    scale, zero_point = output_details['quantization']
-    output = scale * (output - zero_point)
 
     ordered = np.argpartition(-output, 1)
     return [(i, output[i]) for i in ordered[:top_k]][0]
@@ -49,6 +45,11 @@ label_path = data_folder + "classes.txt"
 
 interpreter = Interpreter(model_path)
 print("Model Loaded Successfully.")
+
+interpreter.allocate_tensors()
+
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
 
 interpreter.allocate_tensors()
 _, height, width, _ = interpreter.get_input_details()[0]['shape']
