@@ -91,10 +91,13 @@ class myApp(tk.Frame):
             image_label.grid(row=1, column=0, padx=10, pady=2)
 
         def classify_pls(self):
-            classify(shared_file_path)
+            pred_label,pred_accuracy = classify(shared_file_path)
+            classification.set("Classification: ", pred_label, ", with Accuracy :", np.round(pred_accuracy*100, 2), "%.")
+
+        classification = "No Image Loaded"
 
         frm_image = tk.Frame(self.root, relief="ridge", width=500, height=300, background="#d1e3ff")
-        image_label = tk.Label(frm_image, text="No Image Loaded", compound="center")
+        image_label = tk.Label(frm_image, textvariable = classification , compound="center")
 
         status_label = tk.Label(self.root, text="Please open or capture image first.", padx=10, pady=1)
         
