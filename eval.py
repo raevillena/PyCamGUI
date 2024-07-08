@@ -3,7 +3,7 @@ import keras
 import numpy as np
 
 # Load the model
-model = keras.layers.TFSMLayer('/home/admin/Model_1_EfficientNetB0_with_fine-tuning.keras', call_endpoint="serving_default")
+model = keras.models.load_model('/home/admin/Model_1_EfficientNetB0_with_fine-tuning.keras')
 
 # Define the class names in the order they were in during training
 class_names = ['excellent', 'overaged', 'underaged']
