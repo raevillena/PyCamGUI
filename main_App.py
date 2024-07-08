@@ -4,6 +4,8 @@ from tkinter.filedialog import askopenfile
 from tkinter import filedialog
 from PIL import Image, ImageTk
 
+from main_classify import *
+
 class myApp(tk.Frame):
     def __init__(self,root):
         self.root = root
@@ -67,11 +69,17 @@ class myApp(tk.Frame):
         self.helpmenu.add_command(label="About...", command=donothing)
         self.menubar.add_cascade(label="Help", menu=self.helpmenu)
 
+    shared_file_path=""
+    
     def create_buttons(self):
+        
         def open_image():
             file_path = filedialog.askopenfilename(title="Open Image File", filetypes=[("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.ico")])
             if file_path:
                 display_image(file_path)
+                global shared_file_path
+                shared_file_path = file_path
+
         def display_image(file_path):
             image = Image.open(file_path)
             zoom = 0.12
@@ -82,19 +90,19 @@ class myApp(tk.Frame):
             status_label.config(text=f"Image loaded: {file_path}")
             image_label.grid(row=1, column=0, padx=10, pady=2)
 
-        def display():
-            print("nothing")
+        def classify_pls(self):
+            classify(shared_file_path)
 
         frm_image = tk.Frame(self.root, relief="ridge", width=500, height=300, background="#d1e3ff")
-        image_label = tk.Label(frm_image, text="No Image Loaded")
+        image_label = tk.Label(frm_image, text="No Image Loaded", compound="center")
 
         status_label = tk.Label(self.root, text="Please open or capture image first.", padx=10, pady=1)
         
         frm_buttons = tk.Frame(self.root, relief=tk.RAISED, bd=2)
 
         button_open = tk.Button(frm_buttons, text= "Open file", command = open_image)
-        button_capture= tk.Button(frm_buttons, text= "Capture Image", command = display)
-        button_classify= tk.Button(frm_buttons, text= "Classify", command = display)
+        button_capture= tk.Button(frm_buttons, text= "Capture Image", command = open_image)
+        button_classify= tk.Button(frm_buttons, text= "Classify", command = classify_pls)
 
         button_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         button_capture.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
