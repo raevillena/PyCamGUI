@@ -1,8 +1,8 @@
 from tkinter import *
 import tkinter as tk
-from tkinter import ttk
-from tkinter import *
 from tkinter.filedialog import askopenfile
+from tkinter import filedialog
+from PIL import Image, ImageTk
 
 class myApp(tk.Frame):
     def __init__(self,root):
@@ -23,12 +23,12 @@ class myApp(tk.Frame):
         )
 
         self.main_frame = self
-        #self.main_frame.grid(fill=tk.BOTH, expand=TRUE)
+        self.main_frame.grid(column=0, row=0)
         self.main_frame.columnconfigure(0, minsize=30, weight=1)
+        self.main_frame.rowconfigure(0, minsize=40, weight=1)
         self.main_frame.rowconfigure(1, minsize=40, weight=1)
 
         self.create_menubar()
-        #self.create_preview()
         self.create_buttons()
 
     def create_menubar(self):
@@ -67,45 +67,45 @@ class myApp(tk.Frame):
         self.helpmenu.add_command(label="About...", command=donothing)
         self.menubar.add_cascade(label="Help", menu=self.helpmenu)
 
-    def create_preview(self):
-        frm_preview = tk.Text(self)
-        frm_preview.grid(row=0, column=0, sticky="nsew")
-
     def create_buttons(self):
-        def show():
-            filename = askopenfile()
-            print(filename)
+        def open_image():
+            file_path = filedialog.askopenfilename(title="Open Image File", filetypes=[("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.ico")])
+            if file_path:
+                display_image(file_path)
+        def display_image(file_path):
+            image = Image.open(file_path)
+            zoom = 0.12
+            pixels_x, pixels_y = tuple([int(zoom * x)  for x in image.size])
+            photo = ImageTk.PhotoImage(image.resize((pixels_x, pixels_y)))
+            image_label.config(image=photo)
+            image_label.photo = photo
+            status_label.config(text=f"Image loaded: {file_path}")
+            image_label.grid(row=1, column=0, padx=10, pady=2)
 
         def display():
             print("nothing")
+
+        frm_image = tk.Frame(self.root, relief="ridge", width=500, height=300, background="#d1e3ff")
+        image_label = tk.Label(frm_image, text="No Image Loaded")
+
+        status_label = tk.Label(self.root, text="Please open or capture image fist.", padx=10, pady=1)
         
         frm_buttons = tk.Frame(self.root, relief=tk.RAISED, bd=2)
-        frm_preview = tk.Frame(self.root, height=10)
 
-        button_open = tk.Button(frm_buttons, text= "Open file", command = show)
+        button_open = tk.Button(frm_buttons, text= "Open file", command = open_image)
         button_capture= tk.Button(frm_buttons, text= "Capture Image", command = display)
         button_classify= tk.Button(frm_buttons, text= "Classify", command = display)
 
-        text = tk.Text(frm_preview,bg='GREEN', height=10)
-
-        label = tk.Label(frm_buttons, text = "Classification: ")
-        #label.pack(padx = 5)
-
-        label = tk.Label(frm_buttons, text = "N/A")
-        #label.pack(padx = 5)
-        
         button_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         button_capture.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
         button_classify.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
 
-        text.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
-        
-        frm_preview.grid(row=0, column=0)
-        frm_buttons.grid(row=1, column=0)
-        
+        status_label.grid(row=0, column=0)
+        frm_image.grid(row=1, column=0)
+        frm_buttons.grid(row=2, column=0)
 
 root = Tk()
 root.title('Black Garlic Classification System')
-#root.geometry('600x400')
+root.geometry('600x400')
 window = myApp(root)
 root.mainloop()
