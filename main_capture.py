@@ -14,10 +14,10 @@ config_preview = None
 
 def cam_init():
     full = (4608, 2592)
-    picam2 = Picamera2()
+    global picam2
     global config_capture
     global config_preview
-
+    picam2 = Picamera2()
     config_capture = picam2.create_still_configuration(main={'size': full},
                                             buffer_count=3)
 
