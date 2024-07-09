@@ -87,14 +87,17 @@ class myApp(tk.Frame):
         def classify_pls():
             pred_label,pred_accuracy,time = classify(shared_file_path)
             classification.set(f"Classification: {pred_label}, with Accuracy: {np.round(pred_accuracy, 2)}% in {time}sec.")
+            global future_delete
+            future_delete = True
 
         def save_pls():
-            shutil.copyfile(shared_file_path, './saved_images'+classification.get()+'.jpg')
+            shutil.copyfile(shared_file_path, './saved_images/'+classification.get()+'.jpg')
 
         def exit_pls():
             if future_delete:
                 os.remove(shared_file_path)
-
+            exit()
+            
         def capture_pls():
             global shared_file_path
             cam_preview()
