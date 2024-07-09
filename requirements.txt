@@ -1,0 +1,5 @@
+numpy==1.26.4
+pillow==10.4.0
+pip==23.0.1
+setuptools==66.1.1
+tflite-runtime==2.14.0
