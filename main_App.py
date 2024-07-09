@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter.filedialog import askopenfile
 from tkinter import filedialog
 from PIL import Image, ImageTk
+import shutil
 
 from main_classify import *
 from main_capture import *
@@ -59,7 +60,7 @@ class myApp(tk.Frame):
         self.helpmenu.add_command(label="About...", command=donothing)
         self.menubar.add_cascade(label="Help", menu=self.helpmenu)
 
-    shared_file_path=""
+    shared_file_path = ""
     
     def create_buttons(self):
         
@@ -70,6 +71,7 @@ class myApp(tk.Frame):
                 global shared_file_path
                 shared_file_path = file_path
                 classify_pls()
+
         def display_image(file_path):
             image = Image.open(file_path)
             zoom = 0.10
@@ -82,15 +84,17 @@ class myApp(tk.Frame):
 
         def classify_pls():
             pred_label,pred_accuracy,time = classify(shared_file_path)
-            classification.set(f"Classification: {pred_label}, with Accuracy: {np.round(pred_accuracy, 2)} % in {time}sec.")
+            classification.set(f"Classification: {pred_label}, with Accuracy: {np.round(pred_accuracy, 2)}% in {time}sec.")
 
-        def preview_pls():
-            cam_preview()
+        def save_pls():
+            shutil.copyfile(shared_file_path, './saved_images'+classification+'.jpg')
+
+        def exit_pls():
+            os.remove(shared_file_path)
 
         def capture_pls():
             global shared_file_path
             cam_preview()
-            #time.sleep(1)
             file_path = cam_capture_file(wait_time=1)
             display_image(file_path)
             shared_file_path = file_path
@@ -107,12 +111,14 @@ class myApp(tk.Frame):
         frm_buttons = tk.Frame(self.root, relief=tk.RAISED, bd=2)
 
         button_open = tk.Button(frm_buttons, text= "Open file", command = open_image)
-        button_capture= tk.Button(frm_buttons, text= "Capture Image", command = capture_pls)
-        button_classify= tk.Button(frm_buttons, text= "Classify", command = classify_pls)
+        button_capture= tk.Button(frm_buttons, text= "Capture and Classify", command = capture_pls)
+        button_save= tk.Button(frm_buttons, text= "Save", command = save_pls)
+        button_exit= tk.Button(frm_buttons, text= "Exit", command = exit_pls)
 
         button_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         button_capture.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
-        button_classify.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
+        button_save.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
+        button_exit.grid(row=0, column=3, sticky="w", padx=15, pady=5)
 
         status_label.grid(row=0, column=0)
         frm_image.grid(row=1, column=0)
