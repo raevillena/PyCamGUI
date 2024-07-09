@@ -94,10 +94,11 @@ class myApp(tk.Frame):
             shutil.copyfile(shared_file_path, './saved_images/'+classification.get()+'.jpg')
 
         def exit_pls():
+            global future_delete
             if future_delete:
                 os.remove(shared_file_path)
             exit()
-            
+
         def capture_pls():
             global shared_file_path
             cam_preview()
