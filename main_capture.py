@@ -20,7 +20,6 @@ config_preview = picam2.create_preview_configuration(main={"size": normalSize},
 def cam_preview():
     picam2.configure(config_preview)
     picam2.start(show_preview=True)
-    time.sleep(1)
 
 def cam_capture_array(peeled=False):
     picam2.options["quality"] = 95
@@ -61,10 +60,12 @@ def cam_capture_file(peeled=False):
         
     picam2.switch_mode(config_capture)
     image_path = dir_path + os.urandom(5).hex() +".jpg"
+    time.sleep(2)
     picam2.capture_file(image_path)
     return image_path
 
 def cam_stop():
+    picam2.stop_preview()
     picam2.stop()
 
 
