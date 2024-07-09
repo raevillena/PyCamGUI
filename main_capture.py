@@ -18,10 +18,11 @@ config_capture = picam2.create_still_configuration(main={'size': full},
 normalSize = (640, 480)
 lowresSize = (320, 240)
 config_preview = picam2.create_preview_configuration(main={"size": normalSize},
-                                          lores={"size": lowresSize, "format": "YUV420"})
+                                          lores={"size": lowresSize, "format": "YUV420"},
+                                          buffer_count=3)
 
 def cam_preview():
-    picam2.configure(config_capture)
+    picam2.configure(config_preview)
     picam2.start(show_preview=True)
 
 def cam_capture_array(peeled=False):
@@ -61,10 +62,9 @@ def cam_capture_file(peeled=False):
                             "Contrast":1.3
                             })
         
-    picam2.switch_mode(config_capture)
     image_path = dir_path + os.urandom(5).hex() +".jpg"
     time.sleep(2)
-    picam2.capture_file(image_path)
+    picam2.switch_mode_and_capture_file(config_capture,image_path)
     return image_path
 
 def cam_stop():
