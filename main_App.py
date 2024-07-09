@@ -93,7 +93,7 @@ class myApp(tk.Frame):
         def save_pls():
             shutil.copyfile(shared_file_path, './saved_images/'+classification.get()+'.jpg')
             classification.set(f"Saved in saved_images folder!")
-            
+
         def exit_pls():
             global future_delete
             try:
@@ -107,10 +107,10 @@ class myApp(tk.Frame):
                 exit()
             exit()
 
-        def capture_pls():
+        def capture_pls(peeled=False):
             global shared_file_path
             cam_preview()
-            file_path = cam_capture_file(wait_time=1)
+            file_path = cam_capture_file(peeled=peeled,wait_time=1)
             display_image(file_path)
             shared_file_path = file_path
             classify_pls()
@@ -128,14 +128,17 @@ class myApp(tk.Frame):
         frm_buttons = tk.Frame(self.root, relief=tk.RAISED, bd=2)
 
         button_open = tk.Button(frm_buttons, text= "Open file", command = open_image)
-        button_capture= tk.Button(frm_buttons, text= "Capture and Classify", command = capture_pls)
+
+        button_capture= tk.Button(frm_buttons, text= "Capture UnPeeled", command = capture_pls())
+        button_capture_peeled = tk.Button(frm_buttons, text= "Capture Peeled", command = capture_pls(peeled=True))
         button_save= tk.Button(frm_buttons, text= "Save", command = save_pls)
         button_exit= tk.Button(frm_buttons, text= "Exit", command = exit_pls)
 
         button_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         button_capture.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
-        button_save.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
-        button_exit.grid(row=0, column=6, sticky="w", padx=5, pady=5)
+        button_capture_peeled.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
+        button_save.grid(row=0, column=3, sticky="ew", padx=5, pady=5)
+        button_exit.grid(row=0, column=4, sticky="w", padx=5, pady=5)
 
         status_label.grid(row=0, column=0)
         frm_image.grid(row=1, column=0)
