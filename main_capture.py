@@ -9,7 +9,10 @@ import numpy as np
 # folder path
 dir_path = r'/home/admin/PyCamGUI/tmp/'
 picam2 = Picamera2()
-config_capture = picam2.create_still_configuration(main={'size': (2304,1296)},
+
+half = (2304,1296)
+full = (4608, 2592)
+config_capture = picam2.create_still_configuration(main={'size': full},
                                            buffer_count=3)
 
 normalSize = (640, 480)
