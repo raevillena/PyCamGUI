@@ -8,21 +8,22 @@ import numpy as np
 
 # folder path
 dir_path = r'/home/admin/PyCamGUI/tmp/'
-picam2 = Picamera2()
+picam2 = None
+config_capture = None
+config_preview = None
 
-half = (2304,1296)
-full = (4608, 2592)
-config_capture = picam2.create_still_configuration(main={'size': full},
-                                           buffer_count=3)
+def cam_init():
+    full = (4608, 2592)
+    picam2 = Picamera2()
+    global config_capture
+    global config_preview
+    
+    config_capture = picam2.create_still_configuration(main={'size': full},
+                                            buffer_count=3)
 
-normalSize = (640, 480)
-lowresSize = (320, 240)
-config_preview = picam2.create_preview_configuration()
-
-
+    config_preview = picam2.create_preview_configuration()
 
 def cam_preview():
-    picam2=Picamera2()
     picam2.configure(config_preview)
     picam2.start(show_preview=True)
 
