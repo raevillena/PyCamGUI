@@ -38,9 +38,11 @@ class myApp(tk.Frame):
         self.menubar = tk.Menu(self.root)
         self.root.config(menu=self.menubar)
 
-        def donothing(self):
-            filewin = tk.Toplevel(self.root)
-            label = tk.Label(filewin, text="This software is not in anyway sold to anyone and serves as academic requirement only for MSCPE program in MAPUA University")
+        def donothing():
+            filewin = tk.Toplevel(self)
+            label = tk.Label(filewin, text="This software is not in anyway sold to anyone and serves as")
+            label.pack()
+            label = tk.Label(filewin, text="academic requirement only for MSCPE program in MAPUA University")
             label.pack()
             label = tk.Label(filewin, text="Written by Raymart O. Villena")
             label.pack()
