@@ -37,7 +37,7 @@ def classify(image_path):
     classification_label = labels[label_id]
     print("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
 
-    return (classification_label, np.round(prob*100, 2))
+    return (classification_label, np.round(prob*100, 2), classification_time)
 
 data_folder = "/home/admin/PyCamGUI/"
 model_path = '/home/admin/Model_1_EfficientNetB0_with_fine-tuning.tflite'

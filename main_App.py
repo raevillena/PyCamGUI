@@ -81,8 +81,8 @@ class myApp(tk.Frame):
             image_label.grid(row=1, column=0, padx=10, pady=2)
 
         def classify_pls():
-            pred_label,pred_accuracy = classify(shared_file_path)
-            classification.set(f"Classification: {pred_label}, with Accuracy: {np.round(pred_accuracy, 2)} %.")
+            pred_label,pred_accuracy,time = classify(shared_file_path)
+            classification.set(f"Classification: {pred_label}, with Accuracy: {np.round(pred_accuracy, 2)} % in {time}sec.")
 
         def preview_pls():
             cam_preview()
@@ -90,8 +90,8 @@ class myApp(tk.Frame):
         def capture_pls():
             global shared_file_path
             cam_preview()
-            time.sleep(1)
-            file_path = cam_capture_file()
+            #time.sleep(1)
+            file_path = cam_capture_file(wait_time=1)
             display_image(file_path)
             shared_file_path = file_path
             classify_pls()
@@ -99,8 +99,8 @@ class myApp(tk.Frame):
 
         classification = StringVar()
 
-        frm_image = tk.Frame(self.root, relief="ridge", width=500, height=300, background="#d1e3ff")
-        image_label = tk.Label(frm_image, textvariable = classification , compound="top")
+        frm_image = tk.Frame(self.root, relief="ridge", width=800, height=300, background="#d1e3ff", padx=155)
+        image_label = tk.Label(frm_image, textvariable = classification , compound="top", pady=10)
 
         status_label = tk.Label(self.root, text="Please open or capture image first.", padx=10, pady=1)
         
@@ -115,7 +115,7 @@ class myApp(tk.Frame):
         button_classify.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
 
         status_label.grid(row=0, column=0)
-        frm_image.grid(row=1, column=0)
+        frm_image.grid(row=1, column=0,padx=100)
         frm_buttons.grid(row=2, column=0)
 
 root = Tk()
