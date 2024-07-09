@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from picamera2 import Picamera2, Preview
+from picamera2 import Picamera2
 from libcamera import controls
 import os
 import time
@@ -8,23 +8,15 @@ import numpy as np
 
 # folder path
 dir_path = r'/home/admin/PyCamGUI/tmp/'
-picam2 = None
-config_capture = None
-config_preview = None
 
-def cam_init():
-    full = (4608, 2592)
-    global picam2
-    global config_capture
-    global config_preview
-    picam2 = Picamera2()
-    config_capture = picam2.create_still_configuration(main={'size': full},
-                                            buffer_count=3)
 
-    config_preview = picam2.create_preview_configuration()
+full = (4608, 2592)
+picam2 = Picamera2()
+config_capture = picam2.create_still_configuration(main={'size': full},
+                                        buffer_count=3)
+config_preview = picam2.create_preview_configuration()
 
 def cam_preview():
-    cam_init()
     picam2.configure(config_preview)
     picam2.start(show_preview=True)
 
@@ -36,12 +28,14 @@ def cam_capture_array(peeled=False):
                             #"AfMode":controls.AfModeEnum.Continuous,
                             "LensPosition":6.5,
                             "Brightness":0.1,
-                            "AnalogueGain":10,#disabled when not closeup
+                            "AnalogueGain":10,
                             "Contrast":1.3
                             })
     else:
         picam2.set_controls({"AfMode":controls.AfModeEnum.Continuous,
+                            "LensPosition":1.0,
                             "Brightness":0.1,
+                            "AnalogueGain":None,
                             "Contrast":1.3
                             })
         
@@ -71,7 +65,10 @@ def cam_capture_file(peeled, wait_time):
     time.sleep(wait_time)
     picam2.switch_mode_and_capture_file(config_capture,image_path)
     picam2.switch_mode(config_preview)
-
+    try:
+        picam2.stop()
+    except:
+        print()
     return image_path
 
 def cam_stop():
