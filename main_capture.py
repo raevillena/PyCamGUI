@@ -21,7 +21,7 @@ config_preview = picam2.create_preview_configuration(main={"size": normalSize},
                                           lores={"size": lowresSize, "format": "YUV420"})
 
 def cam_preview():
-    picam2.configure(config_preview)
+    picam2.configure(config_capture)
     picam2.start(show_preview=True)
 
 def cam_capture_array(peeled=False):
