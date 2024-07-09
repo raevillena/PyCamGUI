@@ -106,6 +106,7 @@ class myApp(tk.Frame):
             file_path = cam_capture_file()
             display_image(file_path)
             shared_file_path = file_path
+            cam_stop()
 
         classification = StringVar()
 
