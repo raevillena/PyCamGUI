@@ -54,16 +54,18 @@ def cam_capture_file(peeled, wait_time):
                             "AnalogueGain":10,#disabled when not closeup
                             "Contrast":1.3
                             })
+        print("Peeled settings applied")
     else:
         picam2.set_controls({"AfMode":controls.AfModeEnum.Continuous,
                             "Brightness":0.1,
                             "Contrast":1.3
                             })
+        print("UnPeeled settings applied")
         
     image_path = dir_path + os.urandom(5).hex() +".jpg"
     time.sleep(wait_time)
     picam2.switch_mode_and_capture_file(config_capture,image_path)
-    
+
     return image_path
 
 def cam_stop():
