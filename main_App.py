@@ -40,33 +40,20 @@ class myApp(tk.Frame):
 
         def donothing(self):
             filewin = tk.Toplevel(self.root)
-            button = tk.Button(filewin, text="Do nothing button")
-            button.pack()
+            label = tk.Label(filewin, text="This software is not in anyway sold to anyone and serves as academic requirement only for MSCPE program in MAPUA University")
+            label.pack()
+            label = tk.Label(filewin, text="Written by Raymart O. Villena")
+            label.pack()
+            label = tk.Label(filewin, text="email:raymart.o.villena@gmail.com")
+            label.pack()
             print("nionoe")
 
         self.filemenu = tk.Menu(self.menubar, tearoff=0)
-        self.filemenu.add_command(label="New", command=donothing)
-        self.filemenu.add_command(label="Open", command=donothing)
-        self.filemenu.add_command(label="Save", command=donothing)
-        self.filemenu.add_command(label="Save as...", command=donothing)
-        self.filemenu.add_command(label="Close", command=donothing)
-
         self.filemenu.add_separator()
         self.filemenu.add_command(label="Exit", command=root.quit)
         self.menubar.add_cascade(label="File", menu=self.filemenu)
-        self.editmenu = tk.Menu(self.menubar, tearoff=0)
-        self.editmenu.add_command(label="Undo", command=donothing)
-        self.editmenu.add_separator()
-        self.editmenu.add_command(label="Cut", command=donothing)
-        self.editmenu.add_command(label="Copy", command=donothing)
-        self.editmenu.add_command(label="Paste", command=donothing)
-        self.editmenu.add_command(label="Delete", command=donothing)
-        self.editmenu.add_command(label="Delete", command=donothing)
-        self.editmenu.add_command(label="Select All", command=donothing)
-
-        self.menubar.add_cascade(label="Edit", menu=self.editmenu)
+      
         self.helpmenu = tk.Menu(self.menubar, tearoff=0)
-        self.helpmenu.add_command(label="Help Index", command=donothing)
         self.helpmenu.add_command(label="About...", command=donothing)
         self.menubar.add_cascade(label="Help", menu=self.helpmenu)
 
