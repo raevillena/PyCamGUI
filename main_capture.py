@@ -64,11 +64,7 @@ def cam_capture_file(peeled, wait_time):
     image_path = dir_path + os.urandom(5).hex() +".jpg"
     time.sleep(wait_time)
     picam2.switch_mode_and_capture_file(config_capture,image_path)
-    picam2.switch_mode(config_preview)
-    try:
-        picam2.stop()
-    except:
-        print()
+
     return image_path
 
 def cam_stop():
