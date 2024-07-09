@@ -56,7 +56,9 @@ def cam_capture_file(peeled, wait_time):
         print("Peeled settings applied")
     else:
         picam2.set_controls({"AfMode":controls.AfModeEnum.Continuous,
+                            "LensPosition":1.0,
                             "Brightness":0.1,
+                            "AnalogueGain":None,
                             "Contrast":1.3
                             })
         print("UnPeeled settings applied")
