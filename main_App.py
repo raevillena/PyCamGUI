@@ -104,6 +104,7 @@ class myApp(tk.Frame):
             cam_preview()
             time.sleep(1)
             file_path = cam_capture_file()
+            display_image(file_path)
             shared_file_path = file_path
 
         classification = StringVar()
