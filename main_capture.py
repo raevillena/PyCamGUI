@@ -43,7 +43,7 @@ def cam_capture_array(peeled=False):
     array = picam2.switch_mode_and_capture_array(config_capture, "main")
     return array
 
-def cam_capture_file(peeled=False, wait_time=2):
+def cam_capture_file(peeled, wait_time):
     picam2.options["quality"] = 95
 
     if peeled:
@@ -63,6 +63,7 @@ def cam_capture_file(peeled=False, wait_time=2):
     image_path = dir_path + os.urandom(5).hex() +".jpg"
     time.sleep(wait_time)
     picam2.switch_mode_and_capture_file(config_capture,image_path)
+    
     return image_path
 
 def cam_stop():
