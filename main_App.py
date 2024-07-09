@@ -107,10 +107,21 @@ class myApp(tk.Frame):
                 exit()
             exit()
 
-        def capture_pls(peeled=False):
+        def capture_pls():
             global shared_file_path
             cam_preview()
-            file_path = cam_capture_file(peeled=peeled,wait_time=1)
+            file_path = cam_capture_file(wait_time=1)
+            display_image(file_path)
+            shared_file_path = file_path
+            classify_pls()
+            cam_stop()
+            global future_delete
+            future_delete = True
+
+        def capture_pls_peeled():
+            global shared_file_path
+            cam_preview()
+            file_path = cam_capture_file(peeled=True,wait_time=1)
             display_image(file_path)
             shared_file_path = file_path
             classify_pls()
@@ -129,8 +140,8 @@ class myApp(tk.Frame):
 
         button_open = tk.Button(frm_buttons, text= "Open file", command = open_image)
 
-        button_capture= tk.Button(frm_buttons, text= "Capture UnPeeled", command = capture_pls())
-        button_capture_peeled = tk.Button(frm_buttons, text= "Capture Peeled", command = capture_pls(peeled=True))
+        button_capture= tk.Button(frm_buttons, text= "Capture UnPeeled", command = capture_pls)
+        button_capture_peeled = tk.Button(frm_buttons, text= "Capture Peeled", command = capture_pls_peeled)
         button_save= tk.Button(frm_buttons, text= "Save", command = save_pls)
         button_exit= tk.Button(frm_buttons, text= "Exit", command = exit_pls)
 
