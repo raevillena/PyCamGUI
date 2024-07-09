@@ -5,6 +5,7 @@ from tkinter import filedialog
 from PIL import Image, ImageTk
 
 from main_classify import *
+from main_capture import *
 
 class myApp(tk.Frame):
     def __init__(self,root):
@@ -38,9 +39,9 @@ class myApp(tk.Frame):
         self.root.config(menu=self.menubar)
 
         def donothing(self):
-            #filewin = tk.Toplevel(self)
-            #button = tk.Button(filewin, text="Do nothing button")
-            #button.pack()
+            filewin = tk.Toplevel(self.root)
+            button = tk.Button(filewin, text="Do nothing button")
+            button.pack()
             print("nionoe")
 
         self.filemenu = tk.Menu(self.menubar, tearoff=0)
@@ -83,7 +84,7 @@ class myApp(tk.Frame):
 
         def display_image(file_path):
             image = Image.open(file_path)
-            zoom = 0.12
+            zoom = 0.10
             pixels_x, pixels_y = tuple([int(zoom * x)  for x in image.size])
             photo = ImageTk.PhotoImage(image.resize((pixels_x, pixels_y)))
             image_label.config(image=photo)
@@ -93,19 +94,29 @@ class myApp(tk.Frame):
 
         def classify_pls():
             pred_label,pred_accuracy = classify(shared_file_path)
-            classification.set("Classification: ", pred_label, ", with Accuracy :", np.round(pred_accuracy*100, 2), "%.")
+            classification.set(f"Classification: {pred_label}, with Accuracy: {np.round(pred_accuracy, 2)} %.")
 
-        classification = "No Image Loaded"
+        def preview_pls():
+            cam_preview()
+
+        def capture_pls():
+            global shared_file_path
+            cam_preview()
+            time.sleep(1)
+            file_path = cam_capture_file()
+            shared_file_path = file_path
+
+        classification = StringVar()
 
         frm_image = tk.Frame(self.root, relief="ridge", width=500, height=300, background="#d1e3ff")
-        image_label = tk.Label(frm_image, textvariable = classification , compound="center")
+        image_label = tk.Label(frm_image, textvariable = classification , compound="top")
 
         status_label = tk.Label(self.root, text="Please open or capture image first.", padx=10, pady=1)
         
         frm_buttons = tk.Frame(self.root, relief=tk.RAISED, bd=2)
 
         button_open = tk.Button(frm_buttons, text= "Open file", command = open_image)
-        button_capture= tk.Button(frm_buttons, text= "Capture Image", command = open_image)
+        button_capture= tk.Button(frm_buttons, text= "Capture Image", command = capture_pls)
         button_classify= tk.Button(frm_buttons, text= "Classify", command = classify_pls)
 
         button_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
