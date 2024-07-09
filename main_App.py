@@ -115,7 +115,7 @@ class myApp(tk.Frame):
         button_classify.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
 
         status_label.grid(row=0, column=0)
-        frm_image.grid(row=1, column=0,padx=100)
+        frm_image.grid(row=1, column=0)
         frm_buttons.grid(row=2, column=0)
 
 root = Tk()
