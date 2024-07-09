@@ -19,7 +19,10 @@ normalSize = (640, 480)
 lowresSize = (320, 240)
 config_preview = picam2.create_preview_configuration()
 
+
+
 def cam_preview():
+    picam2=Picamera2()
     picam2.configure(config_preview)
     picam2.start(show_preview=True)
 
