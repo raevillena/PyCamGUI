@@ -92,7 +92,8 @@ class myApp(tk.Frame):
 
         def save_pls():
             shutil.copyfile(shared_file_path, './saved_images/'+classification.get()+'.jpg')
-
+            classification.set(f"Saved in saved_images folder!")
+            
         def exit_pls():
             global future_delete
             try:
