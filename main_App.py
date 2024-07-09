@@ -61,7 +61,7 @@ class myApp(tk.Frame):
         self.menubar.add_cascade(label="Help", menu=self.helpmenu)
 
     shared_file_path = ""
-    
+    future_delete = False
     def create_buttons(self):
         
         def open_image():
@@ -69,7 +69,9 @@ class myApp(tk.Frame):
             if file_path:
                 display_image(file_path)
                 global shared_file_path
+                global future_delete
                 shared_file_path = file_path
+                future_delete = True
                 classify_pls()
 
         def display_image(file_path):
@@ -87,10 +89,11 @@ class myApp(tk.Frame):
             classification.set(f"Classification: {pred_label}, with Accuracy: {np.round(pred_accuracy, 2)}% in {time}sec.")
 
         def save_pls():
-            shutil.copyfile(shared_file_path, './saved_images'+classification+'.jpg')
+            shutil.copyfile(shared_file_path, './saved_images'+classification.get()+'.jpg')
 
         def exit_pls():
-            os.remove(shared_file_path)
+            if future_delete:
+                os.remove(shared_file_path)
 
         def capture_pls():
             global shared_file_path
@@ -118,7 +121,7 @@ class myApp(tk.Frame):
         button_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
         button_capture.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
         button_save.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
-        button_exit.grid(row=0, column=3, sticky="w", padx=15, pady=5)
+        button_exit.grid(row=0, column=6, sticky="w", padx=5, pady=5)
 
         status_label.grid(row=0, column=0)
         frm_image.grid(row=1, column=0)
