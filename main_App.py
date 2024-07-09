@@ -110,7 +110,7 @@ class myApp(tk.Frame):
         def capture_pls():
             global shared_file_path
             cam_preview()
-            file_path = cam_capture_file(wait_time=1)
+            file_path = cam_capture_file(peeled=False,wait_time=1)
             display_image(file_path)
             shared_file_path = file_path
             classify_pls()
