@@ -100,7 +100,10 @@ class myApp(tk.Frame):
                     os.remove(shared_file_path)
             except:
                 exit()
-            cam_stop()
+            try:
+                cam_stop()
+            except:
+                exit()
             exit()
 
         def capture_pls():
