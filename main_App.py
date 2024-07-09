@@ -62,6 +62,7 @@ class myApp(tk.Frame):
 
     shared_file_path = ""
     future_delete = False
+
     def create_buttons(self):
         
         def open_image():
@@ -95,8 +96,11 @@ class myApp(tk.Frame):
 
         def exit_pls():
             global future_delete
-            if future_delete:
-                os.remove(shared_file_path)
+            try:
+                if future_delete:
+                    os.remove(shared_file_path)
+            except:
+                exit()
             exit()
 
         def capture_pls():
