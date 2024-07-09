@@ -80,8 +80,7 @@ class myApp(tk.Frame):
                 display_image(file_path)
                 global shared_file_path
                 shared_file_path = file_path
-                print(shared_file_path)
-
+                classify_pls()
         def display_image(file_path):
             image = Image.open(file_path)
             zoom = 0.10
@@ -106,6 +105,7 @@ class myApp(tk.Frame):
             file_path = cam_capture_file()
             display_image(file_path)
             shared_file_path = file_path
+            classify_pls()
             cam_stop()
 
         classification = StringVar()

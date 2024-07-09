@@ -17,9 +17,7 @@ config_capture = picam2.create_still_configuration(main={'size': full},
 
 normalSize = (640, 480)
 lowresSize = (320, 240)
-config_preview = picam2.create_preview_configuration(main={"size": normalSize},
-                                          lores={"size": lowresSize, "format": "YUV420"},
-                                          buffer_count=3)
+config_preview = picam2.create_preview_configuration()
 
 def cam_preview():
     picam2.configure(config_preview)
