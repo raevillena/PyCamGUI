@@ -65,7 +65,7 @@ class myApp(tk.Frame):
     future_delete = False
 
     def create_buttons(self):
-        home_dir = "/home/admin/"
+        home_dir = "/home/admin/PyCamGUI"
         def open_image():
             file_path = filedialog.askopenfilename(title="Open Image File", filetypes=[("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.ico")])
             if file_path:
