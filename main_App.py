@@ -9,6 +9,7 @@ from main_classify import *
 from main_capture import *
 
 class myApp(tk.Frame):
+    
     def __init__(self,root):
         self.root = root
         self.bg_menubar = '#fcfcfc'
@@ -64,7 +65,7 @@ class myApp(tk.Frame):
     future_delete = False
 
     def create_buttons(self):
-        
+        home_dir = "/home/admin/"
         def open_image():
             file_path = filedialog.askopenfilename(title="Open Image File", filetypes=[("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.ico")])
             if file_path:
@@ -91,7 +92,7 @@ class myApp(tk.Frame):
 
 
         def save_pls():
-            shutil.copyfile(shared_file_path, './saved_images/'+classification.get()+'.jpg')
+            shutil.copyfile(shared_file_path, home_dir+'saved_images/'+classification.get()+'.jpg')
             classification.set(f"Saved in saved_images folder!")
 
         def exit_pls():
