@@ -16,7 +16,11 @@ quarter = (1152, 648)
 picam2 = Picamera2()
 config_capture = picam2.create_still_configuration(main={'size': full},
                                         buffer_count=3)
-config_preview = picam2.create_preview_configuration()
+
+modes = picam2.sensor_modes
+mode = modes[0]
+config_preview = picam2.create_preview_configuration(sensor={'output_size': mode['size'], 'bit_depth': mode['bit_depth']})
+#config_preview = picam2.create_preview_configuration()
 
 
 def cam_preview_show():
