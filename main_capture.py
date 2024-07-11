@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from picamera2 import Picamera2
+from picamera2 import Picamera2, Preview 
 from libcamera import controls
 import os
 import time
@@ -11,14 +11,24 @@ dir_path = r'/home/admin/PyCamGUI/tmp/'
 
 
 full = (4608, 2592)
+half = (2304, 1296)
+quarter = (1152, 648)
 picam2 = Picamera2()
 config_capture = picam2.create_still_configuration(main={'size': full},
                                         buffer_count=3)
 config_preview = picam2.create_preview_configuration()
 
+
 def cam_preview():
-    picam2.configure(config_preview)
-    picam2.start(show_preview=True)
+    #picam2.configure(config_preview)
+    #picam2.start(show_preview=True)
+    picam2.start_preview(Preview.QTGL, x=100, y=200, width=1152, height=648)
+    picam2.start()
+    overlay = np.zeros((300, 400, 4), dtype=np.uint8)
+    overlay[:150, 200:] = (255, 0, 0, 64) # reddish
+    overlay[150:, :200] = (0, 255, 0, 64) # greenish
+    overlay[150:, 200:] = (0, 0, 255, 64) # blueish
+    picam2.set_overlay(overlay)
 
 def cam_capture_array(peeled=False):
     picam2.options["quality"] = 95

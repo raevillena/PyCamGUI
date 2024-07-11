@@ -130,6 +130,11 @@ class myApp(tk.Frame):
             global future_delete
             future_delete = True
 
+        def preview_pls():
+            cam_preview()
+            time.sleep(5)
+            cam_stop()
+
         classification = StringVar()
 
         frm_image = tk.Frame(self.root, relief="ridge", width=800, height=300, background="#d1e3ff", padx=155)
@@ -138,19 +143,20 @@ class myApp(tk.Frame):
         status_label = tk.Label(self.root, text="Please open or capture image first.", padx=10, pady=1)
         
         frm_buttons = tk.Frame(self.root, relief=tk.RAISED, bd=2)
-
+        
         button_open = tk.Button(frm_buttons, text= "Open file", command = open_image)
-
+        button_preview = tk.Button(frm_buttons, text= "Preview", command = preview_pls)
         button_capture= tk.Button(frm_buttons, text= "Capture UnPeeled", command = capture_pls)
         button_capture_peeled = tk.Button(frm_buttons, text= "Capture Peeled", command = capture_pls_peeled)
         button_save= tk.Button(frm_buttons, text= "Save", command = save_pls)
         button_exit= tk.Button(frm_buttons, text= "Exit", command = exit_pls)
 
         button_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
-        button_capture.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
-        button_capture_peeled.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
-        button_save.grid(row=0, column=3, sticky="ew", padx=5, pady=5)
-        button_exit.grid(row=0, column=4, sticky="w", padx=5, pady=5)
+        button_preview.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
+        button_capture.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
+        button_capture_peeled.grid(row=0, column=3, sticky="ew", padx=5, pady=5)
+        button_save.grid(row=0, column=4, sticky="ew", padx=5, pady=5)
+        button_exit.grid(row=0, column=5, sticky="w", padx=5, pady=5)
 
         status_label.grid(row=0, column=0)
         frm_image.grid(row=1, column=0)
