@@ -164,6 +164,6 @@ class myApp(tk.Frame):
 
 root = Tk()
 root.title('Black Garlic Classification System')
-#root.geometry('600x400')
+root.resizable(False,False)
 window = myApp(root)
 root.mainloop()
