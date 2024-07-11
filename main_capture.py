@@ -41,7 +41,8 @@ def cam_preview_show():
 
 def cam_preview():
     picam2.configure(config_preview)
-    picam2.start(show_preview=True)
+    picam2.start_preview(Preview.QTGL, x=0, y=0, width=800, height=400)
+    picam2.start()
 
 def cam_capture_array(peeled=False):
     picam2.options["quality"] = 95

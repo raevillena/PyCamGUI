@@ -110,7 +110,7 @@ class myApp(tk.Frame):
 
         def capture_pls():
             global shared_file_path
-            #cam_preview()
+            cam_preview()
             file_path = cam_capture_file(peeled=False,wait_time=1)
             display_image(file_path)
             shared_file_path = file_path
@@ -121,7 +121,7 @@ class myApp(tk.Frame):
 
         def capture_pls_peeled():
             global shared_file_path
-            #cam_preview()
+            cam_preview()
             file_path = cam_capture_file(peeled=True,wait_time=1)
             display_image(file_path)
             shared_file_path = file_path
@@ -132,8 +132,8 @@ class myApp(tk.Frame):
 
         def preview_pls():
             cam_preview_show()
-            #time.sleep(5)
-            #cam_stop()
+            time.sleep(10)
+            cam_stop()
 
         classification = StringVar()
 
