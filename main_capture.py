@@ -25,9 +25,9 @@ config_preview = picam2.create_preview_configuration({"size": maxx})
 
 
 def cam_preview_show():
-    picam2.configure(config_preview)
-    picam2.start_preview(Preview.QTGL, x=0, y=0, width=800, height=400)
     try:
+        picam2.configure(config_preview)
+        picam2.start_preview(Preview.QTGL, x=0, y=0, width=800, height=400)
         picam2.start()
         picam2.set_controls({"AfMode":controls.AfModeEnum.Continuous,
                         "LensPosition":1.0,
