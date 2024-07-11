@@ -5,6 +5,8 @@ import os
 import time
 import numpy as np
 
+from PyQt5.QtWidgets import QApplication
+from picamera2.previews.qt import QGlPicamera2
 
 # folder path
 dir_path = r'/home/admin/PyCamGUI/tmp/'
@@ -23,26 +25,28 @@ config_capture = picam2.create_still_configuration(main={'size': full},
 
 config_preview = picam2.create_preview_configuration({"size": maxx})
 
+app = QApplication([])
+qpicamera2 = QGlPicamera2(picam2, width=800, height=600, keep_ar=False)
+qpicamera2.setWindowTitle("Qt Picamera2 App")
+
 
 def cam_preview_show():
-    try:
-        picam2.configure(config_preview)
-        picam2.start_preview(Preview.QTGL, x=0, y=0, width=800, height=400)
-        picam2.start()
-        picam2.set_controls({"AfMode":controls.AfModeEnum.Continuous,
-                        "LensPosition":1.0,
-                        "Brightness":0.1,
-                        "AnalogueGain":1.0,
-                        "Contrast":1.3
-                        })
-        overlay = np.zeros((300, 400, 4), dtype=np.uint8)
-        overlay[:150, 200:] = (255, 0, 0, 64) # reddish
-        overlay[150:, :200] = (0, 255, 0, 64) # greenish
-        overlay[150:, 200:] = (0, 0, 255, 64) # blueish
-        picam2.set_overlay(overlay)
-    except:
-        cam_stop()
-        cam_preview_show()
+    picam2.configure(config_preview)
+    #picam2.start_preview(Preview.QTGL, x=0, y=0, width=800, height=400)
+    picam2.start()
+    picam2.set_controls({"AfMode":controls.AfModeEnum.Continuous,
+                    "LensPosition":1.0,
+                    "Brightness":0.1,
+                    "AnalogueGain":1.0,
+                    "Contrast":1.3
+                    })
+    overlay = np.zeros((300, 400, 4), dtype=np.uint8)
+    overlay[:150, 200:] = (255, 0, 0, 64) # reddish
+    overlay[150:, :200] = (0, 255, 0, 64) # greenish
+    overlay[150:, 200:] = (0, 0, 255, 64) # blueish
+    picam2.set_overlay(overlay)
+    qpicamera2.show()
+    app.exec()
 
 def cam_preview():
     picam2.configure(config_preview)
