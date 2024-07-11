@@ -26,7 +26,7 @@ config_capture = picam2.create_still_configuration(main={'size': full},
 config_preview = picam2.create_preview_configuration({"size": maxx})
 
 app = QApplication([])
-qpicamera2 = QGlPicamera2(picam2, width=800, height=600, keep_ar=False)
+qpicamera2 = QGlPicamera2(picam2, width=800, height=400, keep_ar=True)
 qpicamera2.setWindowTitle("Qt Picamera2 App")
 
 
