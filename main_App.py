@@ -145,7 +145,7 @@ class myApp(tk.Frame):
         frm_buttons = tk.Frame(self.root, relief=tk.RAISED, bd=2)
         
         button_open = tk.Button(frm_buttons, text= "Open file", command = open_image)
-        button_preview = tk.Button(frm_buttons, text= "Preview", command = preview_pls)
+        button_preview = tk.Button(frm_buttons, text= "Show Alignment Guide", command = preview_pls)
         button_capture= tk.Button(frm_buttons, text= "Capture UnPeeled", command = capture_pls)
         button_capture_peeled = tk.Button(frm_buttons, text= "Capture Peeled", command = capture_pls_peeled)
         button_save= tk.Button(frm_buttons, text= "Save", command = save_pls)
