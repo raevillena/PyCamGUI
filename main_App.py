@@ -131,7 +131,7 @@ class myApp(tk.Frame):
             future_delete = True
 
         def preview_pls():
-            cam_preview()
+            cam_preview_show()
             time.sleep(5)
             cam_stop()
 

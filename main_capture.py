@@ -19,16 +19,25 @@ config_capture = picam2.create_still_configuration(main={'size': full},
 config_preview = picam2.create_preview_configuration()
 
 
-def cam_preview():
-    #picam2.configure(config_preview)
-    #picam2.start(show_preview=True)
-    picam2.start_preview(Preview.QTGL, x=0, y=0, width=800, height=300)
+def cam_preview_show():
+    picam2.configure(config_preview)
+    picam2.start_preview(Preview.QTGL, x=0, y=0, width=800, height=600)
     picam2.start()
+    picam2.set_controls({"AfMode":controls.AfModeEnum.Continuous,
+                    "LensPosition":1.0,
+                    "Brightness":0.1,
+                    "AnalogueGain":1.0,
+                    "Contrast":1.3
+                    })
     overlay = np.zeros((300, 400, 4), dtype=np.uint8)
     overlay[:150, 200:] = (255, 0, 0, 64) # reddish
     overlay[150:, :200] = (0, 255, 0, 64) # greenish
     overlay[150:, 200:] = (0, 0, 255, 64) # blueish
     picam2.set_overlay(overlay)
+
+def cam_preview():
+    picam2.configure(config_preview)
+    picam2.start(show_preview=True)
 
 def cam_capture_array(peeled=False):
     picam2.options["quality"] = 95
