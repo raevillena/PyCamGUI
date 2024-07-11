@@ -10,6 +10,9 @@ import numpy as np
 dir_path = r'/home/admin/PyCamGUI/tmp/'
 
 
+maxx = (4096, 2304)
+max_half = (2048, 1152)
+max_quarter = (1024,576)
 full = (4608, 2592)
 half = (2304, 1296)
 quarter = (1152, 648)
@@ -17,27 +20,29 @@ picam2 = Picamera2()
 config_capture = picam2.create_still_configuration(main={'size': full},
                                         buffer_count=3)
 
-modes = picam2.sensor_modes
-mode = modes[0]
-config_preview = picam2.create_preview_configuration(sensor={'output_size': mode['size'], 'bit_depth': mode['bit_depth']})
-#config_preview = picam2.create_preview_configuration()
+
+config_preview = picam2.create_preview_configuration({"size": maxx})
 
 
 def cam_preview_show():
     picam2.configure(config_preview)
-    picam2.start_preview(Preview.QTGL, x=0, y=0, width=800, height=600)
-    picam2.start()
-    picam2.set_controls({"AfMode":controls.AfModeEnum.Continuous,
-                    "LensPosition":1.0,
-                    "Brightness":0.1,
-                    "AnalogueGain":1.0,
-                    "Contrast":1.3
-                    })
-    overlay = np.zeros((300, 400, 4), dtype=np.uint8)
-    overlay[:150, 200:] = (255, 0, 0, 64) # reddish
-    overlay[150:, :200] = (0, 255, 0, 64) # greenish
-    overlay[150:, 200:] = (0, 0, 255, 64) # blueish
-    picam2.set_overlay(overlay)
+    picam2.start_preview(Preview.QTGL, x=0, y=0, width=800, height=400)
+    try:
+        picam2.start()
+        picam2.set_controls({"AfMode":controls.AfModeEnum.Continuous,
+                        "LensPosition":1.0,
+                        "Brightness":0.1,
+                        "AnalogueGain":1.0,
+                        "Contrast":1.3
+                        })
+        overlay = np.zeros((300, 400, 4), dtype=np.uint8)
+        overlay[:150, 200:] = (255, 0, 0, 64) # reddish
+        overlay[150:, :200] = (0, 255, 0, 64) # greenish
+        overlay[150:, 200:] = (0, 0, 255, 64) # blueish
+        picam2.set_overlay(overlay)
+    except:
+        cam_stop()
+        cam_preview_show()
 
 def cam_preview():
     picam2.configure(config_preview)
