@@ -5,7 +5,9 @@ import os
 import time
 import numpy as np
 
-from PyQt5.QtWidgets import QApplication
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import (QApplication, QHBoxLayout, QLabel, QPushButton,
+                             QVBoxLayout, QWidget)
 from picamera2.previews.qt import QGlPicamera2
 
 # folder path
@@ -25,9 +27,40 @@ config_capture = picam2.create_still_configuration(main={'size': full},
 
 config_preview = picam2.create_preview_configuration({"size": maxx})
 
+#app main
+
 app = QApplication([])
+def on_button_clicked():
+    button.setEnabled(False)
+    cam_stop()
+
+
+def capture_done(job):
+    picam2.wait(job)
+    button.setEnabled(True)
+
+#camera port
 qpicamera2 = QGlPicamera2(picam2, width=800, height=400, keep_ar=True)
 qpicamera2.setWindowTitle("Qt Picamera2 App")
+
+#app components
+button = QPushButton("Exit Alignment")
+label = QLabel()
+window = QWidget()
+qpicamera2.done_signal.connect(capture_done)
+button.clicked.connect(on_button_clicked)
+
+label.setFixedWidth(400)
+label.setAlignment(QtCore.Qt.AlignTop)
+layout_h = QHBoxLayout()
+layout_v = QVBoxLayout()
+layout_v.addWidget(label)
+layout_v.addWidget(button)
+layout_h.addWidget(qpicamera2, 80)
+layout_h.addLayout(layout_v, 20)
+window.setWindowTitle("Qt Picamera2 App")
+window.resize(800, 400)
+window.setLayout(layout_h)
 
 
 def cam_preview_show():
@@ -44,8 +77,9 @@ def cam_preview_show():
     overlay[:150, 200:] = (255, 0, 0, 64) # reddish
     overlay[150:, :200] = (0, 255, 0, 64) # greenish
     overlay[150:, 200:] = (0, 0, 255, 64) # blueish
-    picam2.set_overlay(overlay)
-    qpicamera2.show()
+    #picam2.set_overlay(overlay)
+    qpicamera2.set_overlay(overlay)
+    window.show()
     app.exec()
 
 def cam_preview():
