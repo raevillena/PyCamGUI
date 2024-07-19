@@ -63,7 +63,7 @@ def load_model(model_path):
 
 data_folder = "/home/admin/test_data/"
 model_dir = "/home/admin/models/"
-label_path = "/home/admin/PyCamGUI/classes.txt"
+label_path = "/home/admin/PyCamGUI/classes2.txt"
 
 dir_list = os.listdir(model_dir)
 
