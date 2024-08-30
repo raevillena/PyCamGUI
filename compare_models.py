@@ -42,7 +42,7 @@ def load_model(model_path):
         classification_label = labels[label_id]
         print("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
 
-        return (classification_label, np.round(prob*100, 2), classification_time)
+        return (classification_label, prob, 2, classification_time)
 
     interpreter = Interpreter(model_path)
     print("Model Loaded Successfully.")
@@ -50,16 +50,22 @@ def load_model(model_path):
     output_details = interpreter.get_output_details()
 
     collected_time = []
+    collected_pred = []
+    collected_probability = []
+    collected_class = []
 
     for klass in load_labels(label_path):
         image_folder = data_folder + klass
         image_list = os.listdir(image_folder)
         for image in image_list:
-            _,_,used_time=classify(image_folder + "/" +image)
+            pred_label,probability,used_time=classify(image_folder + "/" +image)
             #put time in a buffer and average later
             collected_time.append(used_time)
+            collected_pred.append(pred_label)
+            collected_probability.append(probability)
+            collected_class.append(klass)
 
-    return collected_time
+    return (collected_time,collected_pred,collected_probability,klass)
 
 data_folder = "/home/admin/test_data/"
 model_dir = "/home/admin/models/"
@@ -73,11 +79,14 @@ res_time = []
 for model in dir_list:
     model_path = model_dir+model
     res_model.append(model)
-    used_time = load_model(model_path)
+    used_time,predictions,probability,klass = load_model(model_path)
     mean = 0
     for a in used_time:
         mean = mean + a
     res_time.append(mean/len(used_time))
+    each_res = {"Model":model, "class":klass,"predictions": predictions, "probability":probability, "time":used_time}
+    df = pd.DataFrame(each_res)
+    df.to_csv(model+".csv")
 
 result = {"Model":res_model, "Mean time": res_time}
 df = pd.DataFrame(result)
