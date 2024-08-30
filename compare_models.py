@@ -42,7 +42,7 @@ def load_model(model_path):
         classification_label = labels[label_id]
         print("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
 
-        return (classification_label, prob, 2, classification_time)
+        return (classification_label, prob, classification_time)
 
     interpreter = Interpreter(model_path)
     print("Model Loaded Successfully.")
