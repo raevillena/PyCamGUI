@@ -33,14 +33,14 @@ def load_model(model_path):
         label_id, prob = classify_image(interpreter, image)
         time2 = time.time()
         classification_time = np.round(time2-time1, 10)
-        print("Classificaiton Time =", classification_time, "seconds.")
+        #print("Classificaiton Time =", classification_time, "seconds.")
 
         # Read class labels.
         labels = load_labels(label_path)
 
         # Return the classification label of the image.
         classification_label = labels[label_id]
-        print("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
+        #print("Image Label is :", classification_label, ", with Accuracy :", np.round(prob*100, 2), "%.")
 
         return (classification_label, prob, classification_time)
 
@@ -55,7 +55,9 @@ def load_model(model_path):
     collected_class = []
 
     for klass in load_labels(label_path):
+        print("Test Beginning Class: ", klass)
         image_folder = data_folder + klass
+        print("Image directory: ", image_folder)
         image_list = os.listdir(image_folder)
         for image in image_list:
             pred_label,probability,used_time=classify(image_folder + "/" +image)
@@ -64,6 +66,7 @@ def load_model(model_path):
             collected_pred.append(pred_label)
             collected_probability.append(probability)
             collected_class.append(klass)
+        print("Done testing for Class: ", klass)
 
     return (collected_time,collected_pred,collected_probability,klass)
 
@@ -77,7 +80,9 @@ res_model = []
 res_time = []
 
 for model in dir_list:
+    print("Starting inference for model: ", model)
     model_path = model_dir+model
+    print("Model path: ",model_path)
     res_model.append(model)
     used_time,predictions,probability,klass = load_model(model_path)
     mean = 0
@@ -87,6 +92,7 @@ for model in dir_list:
     each_res = {"Model":model, "class":klass,"predictions": predictions, "probability":probability, "time":used_time}
     df = pd.DataFrame(each_res)
     df.to_csv(model+".csv")
+    print("Done inference for model: ", model)
 
 result = {"Model":res_model, "Mean time": res_time}
 df = pd.DataFrame(result)
