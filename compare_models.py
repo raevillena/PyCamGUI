@@ -71,8 +71,8 @@ def load_model(model_path):
 
     return (collected_time,collected_pred,collected_probability,collected_class)
 
-data_folder = "/home/admin/retest/"
-model_dir = "/home/admin/test_model/"
+data_folder = "/home/admin/test_data/"
+model_dir = "/home/admin/models/"
 label_path = "/home/admin/PyCamGUI/classes2.txt"
 
 dir_list = os.listdir(model_dir)
