@@ -67,8 +67,9 @@ def load_model(model_path):
             collected_probability.append(probability)
             collected_class.append(klass)
         print("Done testing for Class: ", klass)
+        print("\n")
 
-    return (collected_time,collected_pred,collected_probability,klass)
+    return (collected_time,collected_pred,collected_probability,collected_class)
 
 data_folder = "/home/admin/retest/"
 model_dir = "/home/admin/test_model/"
@@ -93,6 +94,7 @@ for model in dir_list:
     df = pd.DataFrame(each_res)
     df.to_csv(model+".csv")
     print("Done inference for model: ", model)
+    print("\n")
 
 result = {"Model":res_model, "Mean time": res_time}
 df = pd.DataFrame(result)
