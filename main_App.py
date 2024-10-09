@@ -132,7 +132,7 @@ class myApp(tk.Frame):
 
         def preview_pls():
             cam_preview_show()
-            time.sleep(10)
+            time.sleep(5)
             cam_stop()
 
         classification = StringVar()

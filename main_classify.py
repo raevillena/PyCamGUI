@@ -40,7 +40,7 @@ def classify(image_path):
     return (classification_label, np.round(prob*100, 2), classification_time)
 
 data_folder = "/home/admin/PyCamGUI/"
-model_path = '/home/admin/Model_1_EfficientNetB0_with_fine-tuning.tflite'
+model_path = '/home/admin/main.tflite'
 label_path = data_folder + "classes.txt"
 
 interpreter = Interpreter(model_path)
